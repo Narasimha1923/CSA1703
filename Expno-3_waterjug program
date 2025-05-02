@@ -1,0 +1,26 @@
+from collections import deque
+print("192372261-narasimha") 
+def water_jug_bfs(jug1, jug2, target):
+    visited = set()
+    q = deque([(0, 0)])  # (jug1, jug2)
+
+    while q:
+        a, b = q.popleft()
+        if (a, b) in visited:
+            continue
+        visited.add((a, b))
+
+        if a == target or b == target:
+            print(f"Reached: ({a}, {b})")
+            return True
+
+        q.extend([
+            (jug1, b), (a, jug2),  # fill jugs
+            (0, b), (a, 0),        # empty jugs
+            (min(a + b, jug1), max(0, b - (jug1 - a))),  # pour jug2 -> jug1
+            (max(0, a - (jug2 - b)), min(a + b, jug2))   # pour jug1 -> jug2
+        ])
+    return False
+
+# Example: Jug1=4L, Jug2=3L, target=2L
+water_jug_bfs(4, 3, 2)
