@@ -1,0 +1,31 @@
+from collections import deque
+print("192372261-narasimha")
+def is_valid(m, c):
+    return 0 <= m <= 3 and 0 <= c <= 3 and (m == 0 or m >= c) and (3 - m == 0 or 3 - m >= 3 - c)
+
+def bfs():
+    start = (3, 3, 1)
+    goal = (0, 0, 0)
+    visited = set()
+    queue = deque([ (start, []) ])
+    moves = [(1,0), (2,0), (0,1), (0,2), (1,1)]
+
+    while queue:
+        (m, c, b), path = queue.popleft()
+        if (m, c, b) == goal:
+            return path + [(m, c, b)]
+        for dm, dc in moves:
+            nm, nc, nb = (m - dm, c - dc, 0) if b else (m + dm, c + dc, 1)
+            new_state = (nm, nc, nb)
+            if is_valid(nm, nc) and new_state not in visited:
+                visited.add(new_state)
+                queue.append((new_state, path + [(m, c, b)]))
+    return None
+
+# Run and print solution
+sol = bfs()
+if sol:
+    for i, s in enumerate(sol):
+        print(f"Step {i}: M={s[0]} C={s[1]} Boat={'left' if s[2] else 'right'}")
+else:
+    print("No solution.")
