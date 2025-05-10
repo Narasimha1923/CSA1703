@@ -1,0 +1,50 @@
+# Define the map (adjacency graph)
+map_graph = {
+    'WA': ['NT', 'SA'],
+    'NT': ['WA', 'SA', 'Q'],
+    'SA': ['WA', 'NT', 'Q', 'NSW', 'V'],
+    'Q': ['NT', 'SA', 'NSW'],
+    'NSW': ['SA', 'Q', 'V'],
+    'V': ['SA', 'NSW', 'T'],
+    'T': ['V']
+}
+
+# Define the color domain
+print("192372261-Narasimha")
+colors = ['Red', 'Green', 'Blue']
+
+# Function to check if the color assignment is valid
+def is_valid(assignment, region, color):
+    for neighbor in map_graph[region]:
+        if neighbor in assignment and assignment[neighbor] == color:
+            return False
+    return True
+
+# Backtracking CSP Solver
+def backtrack(assignment):
+    # If assignment is complete
+    if len(assignment) == len(map_graph):
+        return assignment
+
+    # Select unassigned region
+    unassigned = [r for r in map_graph if r not in assignment][0]
+
+    for color in colors:
+        if is_valid(assignment, unassigned, color):
+            assignment[unassigned] = color
+            result = backtrack(assignment)
+            if result:
+                return result
+            # Backtrack
+            del assignment[unassigned]
+
+    return None
+
+# Run the solver
+solution = backtrack({})
+if solution:
+    print("Map Coloring Solution:")
+    for region, color in solution.items():
+        print(f"{region}: {color}")
+else:
+    print("No solution found.")
