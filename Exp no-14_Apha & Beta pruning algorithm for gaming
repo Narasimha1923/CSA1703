@@ -1,0 +1,36 @@
+import math
+print("192372261-Narasimha")
+# Function to perform alpha-beta pruning
+def alpha_beta_pruning(node, depth, alpha, beta, maximizingPlayer):
+    if depth == 0 or isinstance(node, int):  # Terminal condition
+        return node
+
+    if maximizingPlayer:
+        maxEval = -math.inf
+        for child in node:
+            eval = alpha_beta_pruning(child, depth - 1, alpha, beta, False)
+            maxEval = max(maxEval, eval)
+            alpha = max(alpha, eval)
+            if beta <= alpha:
+                break  # Prune the remaining nodes
+        return maxEval
+    else:
+        minEval = math.inf
+        for child in node:
+            eval = alpha_beta_pruning(child, depth - 1, alpha, beta, True)
+            minEval = min(minEval, eval)
+            beta = min(beta, eval)
+            if beta <= alpha:
+                break  # Prune the remaining nodes
+        return minEval
+
+# Example game tree
+game_tree = [
+    [3, 5, [6, 9], 7], 
+    [2, [0, -1], 4, 8]
+]
+
+# Running alpha-beta pruning
+best_value = alpha_beta_pruning(game_tree, depth=3, alpha=-math.inf, beta=math.inf, maximizingPlayer=True)
+print("Best evaluated value:", best_value)
+
