@@ -1,0 +1,20 @@
+% Program written by Narasimha
+% A simple database of names and dates of birth
+
+% Format: dob(Name, Day, Month, Year).
+dob(john, 12, may, 1995).
+dob(alice, 3, january, 2000).
+dob(sam, 22, december, 1998).
+dob(narasimha, 15, august, 1997).  % Your name and DOB (example)
+
+% Query interface
+start :-
+    write('DOB Database Program by Narasimha'), nl,
+    write('Enter the name (in lowercase, e.g., john): '),
+    read(Name),
+    (
+        dob(Name, Day, Month, Year) ->
+            format('Narasimha: ~w was born on ~w ~w, ~w.~n', [Name, Day, Month, Year])
+        ;
+            write('Narasimha: Sorry, no DOB found for that name.'), nl
+    ).
