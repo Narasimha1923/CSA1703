@@ -1,0 +1,26 @@
+% bird(Name)
+bird(sparrow).
+bird(penguin).
+bird(ostrich).
+bird(eagle).
+bird(parrot).
+bird(kiwi).
+
+% cannot_fly(Bird) – explicitly list birds that cannot fly
+cannot_fly(penguin).
+cannot_fly(ostrich).
+cannot_fly(kiwi).
+
+% Rule: can_fly(Bird)
+can_fly(Bird) :-
+    bird(Bird),
+    \+ cannot_fly(Bird).  % A bird can fly if it's a bird and not in the cannot_fly list
+
+% Rule: fly_status(Bird, Status)
+fly_status(Bird, 'can fly') :-
+    can_fly(Bird), !.
+
+fly_status(Bird, 'cannot fly') :-
+    bird(Bird), !.
+
+fly_status(_, 'not a bird').
