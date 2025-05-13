@@ -1,0 +1,26 @@
+% --- Disease-Based Diet Recommendations ---
+
+% diet(Disease, RecommendedFoodList)
+diet(diabetes, [vegetables, whole_grains, lean_protein, legumes, fruits_in_moderation]).
+diet(hypertension, [low_sodium_foods, vegetables, fruits, whole_grains, low_fat_dairy]).
+diet(obesity, [high_fiber_foods, lean_protein, fruits, vegetables, water]).
+diet(anemia, [iron_rich_foods, leafy_greens, red_meat, beans, vitamin_c]).
+diet(constipation, [high_fiber_foods, water, fruits, vegetables, whole_grains]).
+diet(ulcer, [non_acidic_foods, milk, oats, bananas, lean_meat]).
+diet(cholesterol, [oats, nuts, fruits, vegetables, fish, whole_grains]).
+
+% Rule to suggest diet based on disease
+suggest_diet(Disease, FoodList) :-
+    diet(Disease, FoodList).
+
+% User-friendly response
+print_diet(Disease) :-
+    suggest_diet(Disease, FoodList),
+    format('Recommended diet for ~w: ~n', [Disease]),
+    print_foods(FoodList).
+
+% Helper rule to print food list nicely
+print_foods([]).
+print_foods([H|T]) :-
+    format('- ~w~n', [H]),
+    print_foods(T).
