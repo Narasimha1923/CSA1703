@@ -1,0 +1,13 @@
+% --- Facts: fruit(Name, Color) ---
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, purple).
+fruit(orange, orange).
+fruit(kiwi, brown).
+fruit(lemon, yellow).
+fruit(watermelon, green).
+fruit(blueberry, blue).
+
+% Rule: find fruit by color
+fruit_with_color(Color, Fruit) :-
+    fruit(Fruit, Color).
