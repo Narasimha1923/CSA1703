@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Understanding HTML Tags - Anchor, Title, and More</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <h1>Welcome to My HTML Tag Tutorial Blog</h1>
+  <p>This blog post demonstrates some basic HTML tags used in web development.</p>
+
+  <h2>1. The Anchor Tag</h2>
+  <p>
+    An <strong>anchor tag</strong> is used to create a hyperlink.
+    Click the link below to visit <a href="https://www.w3schools.com/html/html_links.asp" target="_blank" title="HTML Anchor Tag Tutorial">W3Schools Anchor Tag Tutorial</a>.
+  </p>
+
+  <h2>2. The Title Tag</h2>
+  <p>
+    The <strong>title tag</strong
