@@ -1,0 +1,24 @@
+import numpy as np
+print("192372134-A.Dileep kumar")
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+class NeuralNetwork:
+    def __init__(self, input_size, hidden_size, output_size):
+        self.W1 = np.random.randn(input_size, hidden_size)
+        self.W2 = np.random.randn(hidden_size, output_size)
+    
+    def forward(self, X):
+        self.z1 = np.dot(X, self.W1)
+        self.a1 = sigmoid(self.z1)
+        self.z2 = np.dot(self.a1, self.W2)
+        self.a2 = sigmoid(self.z2)
+        return self.a2
+
+# Example usage
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])  # XOR input
+y = np.array([[0], [1], [1], [0]])               # XOR output
+
+nn = NeuralNetwork(2, 4, 1)  # 2 inputs, 4 hidden neurons, 1 output
+output = nn.forward(X)
+print("Predictions:", output)
