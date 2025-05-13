@@ -1,0 +1,43 @@
+% State representation: state(MonkeyPosition, MonkeyStatus, BoxPosition, HasBanana)
+% MonkeyStatus: on_floor / on_box
+% MonkeyPosition & BoxPosition: at locations a, b, or c
+
+% Initial state
+initial_state(state(a, on_floor, b, no)).
+
+% Goal state
+goal_state(state(_, _, _, yes)).
+
+% Action: move monkey to another location
+move(state(X, on_floor, X, HB), walk(X, Y), state(Y, on_floor, X, HB)) :-
+    X \= Y.
+
+% Action: push box to another location
+move(state(X, on_floor, X, HB), push(X, Y), state(Y, on_floor, Y, HB)) :-
+    X \= Y.
+
+% Action: climb box
+move(state(X, on_floor, X, HB), climb, state(X, on_box, X, HB)).
+
+% Action: grasp banana (only if monkey is on box under banana at position c)
+move(state(c, on_box, c, no), grasp, state(c, on_box, c, yes)).
+
+% Plan generator: find sequence of actions from initial to goal state
+plan(State, [], State).
+plan(State1, [Action | Rest], FinalState) :-
+    move(State1, Action, State2),
+    plan(State2, Rest, FinalState).
+
+% Solve the problem
+solve :-
+    initial_state(Initial),
+    goal_state(Goal),
+    plan(Initial, Plan, Goal),
+    write('Action plan for monkey to get the banana:'), nl,
+    print_plan(Plan).
+
+% Helper to print actions
+print_plan([]).
+print_plan([H|T]) :-
+    write('- '), write(H), nl,
+    print_plan(T).
