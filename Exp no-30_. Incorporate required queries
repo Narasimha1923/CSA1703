@@ -1,0 +1,32 @@
+% --- Facts ---
+age(john, 25).
+age(sara, 16).
+citizen(john).
+citizen(sara).
+
+% --- Rules ---
+eligible_to_vote(Person) :-
+    age(Person, Age),
+    Age >= 18,
+    citizen(Person).
+
+% --- Medical Diagnosis Example ---
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, shortness_of_breath).
+symptom(john, loss_of_taste).
+
+disease(john, covid19) :-
+    symptom(john, fever),
+    symptom(john, cough),
+    symptom(john, shortness_of_breath),
+    symptom(john, loss_of_taste).
+
+disease(john, flu) :-
+    symptom(john, fever),
+    symptom(john, cough).
+
+% --- Queries you can make ---
+% ?- eligible_to_vote(john).
+% ?- eligible_to_vote(sara).
+% ?- disease(john, Disease).
