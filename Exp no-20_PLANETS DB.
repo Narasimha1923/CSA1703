@@ -1,0 +1,33 @@
+% planet(Name, OrderFromSun, Diameter_km, DistanceFromSun_million_km, NumberOfMoons, HasRings).
+
+planet(mercury, 1, 4879, 57.9, 0, no).
+planet(venus, 2, 12104, 108.2, 0, no).
+planet(earth, 3, 12742, 149.6, 1, no).
+planet(mars, 4, 6779, 227.9, 2, no).
+planet(jupiter, 5, 139820, 778.5, 79, yes).
+planet(saturn, 6, 116460, 1434, 83, yes).
+planet(uranus, 7, 50724, 2871, 27, yes).
+planet(neptune, 8, 49244, 4495, 14, yes).
+
+% Rules
+
+% Rule to find if a planet has moons
+has_moons(Planet) :-
+    planet(Planet, _, _, _, Moons, _),
+    Moons > 0.
+
+% Rule to find all planets with rings
+ringed_planet(Planet) :-
+    planet(Planet, _, _, _, _, yes).
+
+% Rule to find planets farther from the Sun than a given one
+farther_than(Planet1, Planet2) :-
+    planet(Planet1, _, _, Distance1, _, _),
+    planet(Planet2, _, _, Distance2, _, _),
+    Distance1 > Distance2.
+
+% Rule to find planets within a certain distance range
+within_distance_range(Planet, Min, Max) :-
+    planet(Planet, _, _, Distance, _, _),
+    Distance >= Min,
+    Distance =< Max.
