@@ -1,0 +1,44 @@
+% Facts
+
+% student(Name, RollNumber).
+student(john, 101).
+student(alice, 102).
+student(mary, 103).
+student(bob, 104).
+
+% teacher(Name, Subject).
+teacher(mr_smith, math).
+teacher(ms_jones, english).
+teacher(dr_lee, physics).
+teacher(mrs_clark, chemistry).
+
+% subject_code(Subject, Code).
+subject_code(math, m101).
+subject_code(english, e102).
+subject_code(physics, p103).
+subject_code(chemistry, c104).
+
+% student_subject(Student, Subject).
+student_subject(john, math).
+student_subject(john, physics).
+student_subject(alice, english).
+student_subject(mary, chemistry).
+student_subject(bob, math).
+student_subject(bob, english).
+
+% Rules
+
+% Find which teacher teaches a subject to a student
+teaches_to(Teacher, Student) :-
+    student_subject(Student, Subject),
+    teacher(Teacher, Subject).
+
+% Find subject code for a student's subject
+student_subject_code(Student, Code) :-
+    student_subject(Student, Subject),
+    subject_code(Subject, Code).
+
+% Get all subjects and codes for a student
+student_subjects_codes(Student, Subject, Code) :-
+    student_subject(Student, Subject),
+    subject_code(Subject, Code).
