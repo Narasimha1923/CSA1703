@@ -1,0 +1,32 @@
+% --- Facts (Known Facts) ---
+fact(has_good_credit_history).
+fact(has_job).
+fact(income_above_threshold).
+
+% --- Rules (Inference Rules) ---
+% A person is eligible for a loan if they have a good credit history and a job
+loan_eligibility :-
+    fact(has_good_credit_history),
+    fact(has_job),
+    fact(income_above_threshold).
+
+% A person is eligible for a loan if they have a good credit history and a cosigner
+loan_eligibility :-
+    fact(has_good_credit_history),
+    fact(has_cosigner).
+
+% --- Forward Chaining Inference Engine ---
+% We assume that facts are inferred by applying rules.
+forward_chaining :-
+    loan_eligibility,
+    write('The person is eligible for a loan based on the facts: '),
+    nl,
+    print_facts.
+
+% Print all facts for verification
+print_facts :-
+    fact(F),
+    write(F),
+    nl,
+    fail.
+print_facts.
