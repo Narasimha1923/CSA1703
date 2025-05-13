@@ -1,0 +1,76 @@
+% --- Facts: parent(Parent, Child) ---
+parent(john, mary).
+parent(john, tom).
+parent(susan, mary).
+parent(susan, tom).
+parent(mary, alice).
+parent(mary, bob).
+parent(david, alice).
+parent(david, bob).
+parent(tom, emma).
+parent(linda, emma).
+
+% --- Gender Facts ---
+male(john).
+male(tom).
+male(david).
+male(bob).
+
+female(susan).
+female(mary).
+female(alice).
+female(linda).
+female(emma).
+
+% --- Rules ---
+
+% father(Father, Child)
+father(F, C) :-
+    parent(F, C),
+    male(F).
+
+% mother(Mother, Child)
+mother(M, C) :-
+    parent(M, C),
+    female(M).
+
+% sibling(Person1, Person2)
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+% brother(Brother, Person)
+brother(B, P) :-
+    sibling(B, P),
+    male(B).
+
+% sister(Sister, Person)
+sister(S, P) :-
+    sibling(S, P),
+    female(S).
+
+% grandparent(Grandparent, Grandchild)
+grandparent(GP, GC) :-
+    parent(GP, P),
+    parent(P, GC).
+
+% grandfather(Grandfather, Grandchild)
+grandfather(GF, GC) :-
+    grandparent(GF, GC),
+    male(GF).
+
+% grandmother(Grandmother, Grandchild)
+grandmother(GM, GC) :-
+    grandparent(GM, GC),
+    female(GM).
+
+% uncle(Uncle, Person)
+uncle(U, P) :-
+    parent(Par, P),
+    brother(U, Par).
+
+% aunt(Aunt, Person)
+aunt(A, P) :-
+    parent(Par, P),
+    sister(A, Par).
