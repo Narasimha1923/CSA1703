@@ -1,0 +1,12 @@
+% pattern_match(Pattern, List) succeeds if Pattern appears in List
+
+% Base case: Empty pattern always matches
+pattern_match([], _).
+
+% Recursive case: Pattern matches prefix of list
+pattern_match([X|PatternTail], [X|ListTail]) :-
+    pattern_match(PatternTail, ListTail).
+
+% If no match at current position, shift window by 1
+pattern_match(Pattern, [_|ListTail]) :-
+    pattern_match(Pattern, ListTail).
