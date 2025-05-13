@@ -1,0 +1,15 @@
+% hanoi(N, Source, Target, Auxiliary) moves N disks from Source to Target using Auxiliary.
+
+hanoi(0, _, _, _) :- 
+    !.  % Base case: No disks to move
+
+hanoi(N, Source, Target, Auxiliary) :-
+    N > 0,
+    N1 is N - 1,
+    hanoi(N1, Source, Auxiliary, Target),          % Move N-1 disks to Auxiliary
+    move(Source, Target),                          % Move the bottom disk to Target
+    hanoi(N1, Auxiliary, Target, Source).          % Move N-1 disks from Auxiliary to Target
+
+% Helper predicate to display the move
+move(From, To) :-
+    format('Move disk from ~w to ~w~n', [From, To]).
