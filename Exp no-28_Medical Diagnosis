@@ -1,0 +1,60 @@
+% --- Symptom to Disease Mapping (Rules) ---
+
+disease(flu) :-
+    has(fever),
+    has(cough),
+    has(sore_throat),
+    has(body_ache).
+
+disease(common_cold) :-
+    has(cough),
+    has(sneezing),
+    has(runny_nose).
+
+disease(malaria) :-
+    has(fever),
+    has(chills),
+    has(sweating),
+    has(nausea).
+
+disease(covid19) :-
+    has(fever),
+    has(cough),
+    has(shortness_of_breath),
+    has(loss_of_taste),
+    has(loss_of_smell).
+
+disease(dengue) :-
+    has(fever),
+    has(severe_headache),
+    has(joint_pain),
+    has(skin_rash).
+
+% --- Dynamic predicate to store user input symptoms ---
+:- dynamic(has/1).
+
+% --- Start Diagnosis ---
+start_diagnosis :-
+    retractall(has(_)),
+    ask_symptoms,
+    (   disease(Disease)
+    ->  format('Based on symptoms, the diagnosis is: ~w~n', [Disease])
+    ;   write('Sorry, no diagnosis could be made based on given symptoms.') ).
+
+% --- Ask for symptoms interactively ---
+ask_symptoms :-
+    write('Answer yes. or no. for the following symptoms:'), nl,
+    symptom_list(Symptoms),
+    ask_all(Symptoms).
+
+symptom_list([fever, cough, sore_throat, body_ache, sneezing, runny_nose,
+              chills, sweating, nausea, shortness_of_breath,
+              loss_of_taste, loss_of_smell, severe_headache,
+              joint_pain, skin_rash]).
+
+ask_all([]).
+ask_all([Symptom | Rest]) :-
+    format('Do you have ~w? ', [Symptom]),
+    read(Response),
+    ( Response == yes -> assertz(has(Symptom)) ; true ),
+    ask_all(Rest).
